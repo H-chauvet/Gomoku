@@ -1,27 +1,8 @@
 #!/usr/bin/python3
 
+from src.Game import Game
+
 class Commands:
-
-    def start(self):
-        print('start', flush=True)
-
-    def turn(self):
-        print('turn', flush=True)
-
-    def begin(self):
-        print('begin', flush=True)
-
-    def board(self):
-        print('board', flush=True)
-
-    def info(self):
-        print('info', flush=True)
-
-    def end(self):
-        print('end', flush=True)
-
-    def about(self):
-        print('about', flush=True)
 
     def __init__(self):
         self.commands = {
@@ -34,8 +15,30 @@ class Commands:
             'about': self.about,
         }
 
-    def executeCommand(self, command, params):
+    def start(self, game: Game):
+        game.initBoard(20)
+        print('start', flush=True)
+
+    def turn(self, game: Game):
+        print('turn', flush=True)
+
+    def begin(self, game: Game):
+        print('begin', flush=True)
+
+    def board(self, game: Game):
+        print('board', flush=True)
+
+    def info(self, game: Game):
+        print('info', flush=True)
+
+    def end(self, game: Game):
+        print('end', flush=True)
+
+    def about(self, game: Game):
+        print('about', flush=True)
+
+    def executeCommand(self, command, game: Game, params):
         try:
-            self.commands[command]()
+            self.commands[command](game)
         except:
             return
