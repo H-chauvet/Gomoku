@@ -38,4 +38,4 @@ class Commands:
         try:
             self.commands[command]()
         except:
-            print('Unknown command', flush=True)
+            return
