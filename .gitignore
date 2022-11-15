@@ -1,2 +1,5 @@
 #Binary
 pbrain-gomoku-ai
+
+#Cache
+src/__pycache__
