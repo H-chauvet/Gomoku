@@ -15,35 +15,36 @@ class Commands:
             'ABOUT': self.about,
         }
 
-    def start(self, game: Game):
-        game.initBoard(20)
+    def start(self, params, game: Game):
+        game.initBoard(int(params[0]))
         print('OK - everything is good', flush=True)
 
-    def turn(self, game: Game):
-        game.fillBoard(10, 10, 2)
-        game.fillBoard(11, 10, 1)
+    def turn(self, params, game: Game):
+        game.fillBoard(int(params[0]), int(params[1]), '2')
+        game.fillBoard(11, 10, '1')
         print('11,10', flush=True)
 
-    def begin(self, game: Game):
+    def begin(self, params, game: Game):
         print('10,10', flush=True)
 
-    def board(self, game: Game):
+    def board(self, params, game: Game):
         Parse = Parser()
         Parse.askForInput()
 
         while Parse.getInput().upper() != "DONE":
+            coordinate = Parse.getCoordinate()
+            game.fillBoard(int(coordinate[0]), int(coordinate[1]), coordinate[2])
             Parse.askForInput()
-            #game.fillBoard(x, y, player)
         print('9,9', flush=True)
 
-    def info(self, game: Game):
+    def info(self, params, game: Game):
         print('info', flush=True)
 
-    def about(self, game: Game):
+    def about(self, params, game: Game):
         print('about', flush=True)
 
-    def executeCommand(self, command, game: Game, params):
+    def executeCommand(self, command, params, game: Game):
         try:
-            self.commands[command](game)
+            self.commands[command](params, game)
         except:
             return
