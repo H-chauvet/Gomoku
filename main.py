@@ -12,5 +12,5 @@ if __name__ == '__main__':
     Parser.askForInput()
 
     while Parser.getInput().upper() != "END":
-        Commands.executeCommand(Parser.getInput(), Game, '')
+        Commands.executeCommand(Parser.getInput().upper(), Game, '')
         Parser.askForInput()

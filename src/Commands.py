@@ -1,17 +1,18 @@
 #!/usr/bin/python3
 
 from src.Game import Game
+from src.Parser import Parser
 
 class Commands:
 
     def __init__(self):
         self.commands = {
-            'start': self.start,
-            'turn': self.turn,
-            'begin': self.begin,
-            'board': self.board,
-            'info': self.info,
-            'about': self.about,
+            'START': self.start,
+            'TURN': self.turn,
+            'BEGIN': self.begin,
+            'BOARD': self.board,
+            'INFO': self.info,
+            'ABOUT': self.about,
         }
 
     def start(self, game: Game):
@@ -27,7 +28,13 @@ class Commands:
         print('10,10', flush=True)
 
     def board(self, game: Game):
-        print('board', flush=True)
+        Parse = Parser()
+        Parse.askForInput()
+
+        while Parse.getInput().upper() != "DONE":
+            Parse.askForInput()
+            #game.fillBoard(x, y, player)
+        print('9,9', flush=True)
 
     def info(self, game: Game):
         print('info', flush=True)
