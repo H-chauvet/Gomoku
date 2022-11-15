@@ -17,10 +17,12 @@ class Commands:
 
     def start(self, game: Game):
         game.initBoard(20)
-        print('start', flush=True)
+        print('OK - everything is good', flush=True)
 
     def turn(self, game: Game):
-        print('turn', flush=True)
+        game.fillBoard(10, 10, 2)
+        game.fillBoard(11, 10, 1)
+        print('11,10', flush=True)
 
     def begin(self, game: Game):
         print('begin', flush=True)
