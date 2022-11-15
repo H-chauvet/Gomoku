@@ -8,4 +8,5 @@ if __name__ == '__main__':
     
     while Parser.getInput().upper() != "END":
         print("Input is : %s" % Parser.getInput())
+        print("Params are : %s" % Parser.getParams())
         Parser.askForInput()
