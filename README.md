@@ -1,3 +1,4 @@
+[![Build](https://img.shields.io/github/workflow/status/H-chauvet/Gomoku/Build)](https://github.com/H-chauvet/Gomoku/actions/workflows/build.yml)
 [![License](https://img.shields.io/github/license/H-chauvet/Gomoku)](https://github.com/H-chauvet/Gomoku)
 
 # :dancers:  Authors
