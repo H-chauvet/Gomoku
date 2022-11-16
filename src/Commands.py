@@ -17,6 +17,9 @@ class Commands:
         }
 
     def start(self, params, game: Game, logic: Logic):
+        if (int(params[0]) == 0):
+            print(f'ERROR message - unsupported size or other error', flush=True)
+            return
         game.initBoard(int(params[0]))
         print('OK - everything is good', flush=True)
 
@@ -24,11 +27,11 @@ class Commands:
         game.fillBoard(int(params[0]), int(params[1]), '2')
         game.fillBoard(11, 10, '1')
         x, y = logic.generateRandomPosition()
-        print(x, ',', y, flush=True)
+        print(f'{x},{y}', flush=True)
 
     def begin(self, params, game: Game, logic: Logic):
         x, y = logic.generateRandomPosition()
-        print(x, ',', y, flush=True)
+        print(f'{x},{y}', flush=True)
 
     def board(self, params, game: Game, logic: Logic):
         Parse = Parser()
@@ -39,7 +42,7 @@ class Commands:
             game.fillBoard(int(coordinate[0]), int(coordinate[1]), coordinate[2])
             Parse.askForInput()
         x, y = logic.generateRandomPosition()
-        print(x, ',', y, flush=True)
+        print(f'{x},{y}', flush=True)
 
     def info(self, params, game: Game, logic: Logic):
         print('info', flush=True)
