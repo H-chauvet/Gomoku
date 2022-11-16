@@ -11,8 +11,8 @@ class Logic:
 
     def getBestMove(self, game: Game):
         while True:
-            self.x = random.randint(0, game.getBoardSize())
-            self.y = random.randint(0, game.getBoardSize())
+            self.x = random.randint(0, game.getBoardSize() - 1)
+            self.y = random.randint(0, game.getBoardSize() - 1)
             if (game.board[self.y][self.x] == ' '):
                 break
         return ((self.x, self.y))

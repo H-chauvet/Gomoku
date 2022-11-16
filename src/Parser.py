@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+from sys import stdin
 
 class Parser:
     def __init__(self):
@@ -16,8 +17,7 @@ class Parser:
         return (self.commands)
 
     def getCoordinate(self):
-        coordinate = list()
-        coordinate = self.commands.split(",")
+        coordinate: list[str] = self.commands.split(",")
         return (coordinate)
 
     def getParams(self):

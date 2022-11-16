@@ -52,7 +52,4 @@ class Commands:
         print('about', flush=True)
 
     def executeCommand(self, command, params, game: Game, logic: Logic):
-        try:
-            self.commands[command](params, game, logic)
-        except:
-            return
+        self.commands[command](params, game, logic)
