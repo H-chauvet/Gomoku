@@ -12,3 +12,6 @@ class Game:
 
     def printBoard(self):
         print(self.board)
+
+    def getBoardSize(self):
+        return (len(self.board))

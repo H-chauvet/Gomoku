@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 
 import random
+from src.Game import Game 
 
 class Logic:
 
@@ -8,7 +9,10 @@ class Logic:
         self.x = 0
         self.y = 0
 
-    def generateRandomPosition(self):
-        self.x = random.randint(0, 20)
-        self.y = random.randint(0, 20)
+    def getBestMove(self, game: Game):
+        while True:
+            self.x = random.randint(0, game.getBoardSize())
+            self.y = random.randint(0, game.getBoardSize())
+            if (game.board[self.y][self.x] == ' '):
+                break
         return ((self.x, self.y))

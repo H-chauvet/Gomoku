@@ -17,7 +17,7 @@ class Commands:
         }
 
     def start(self, params, game: Game, logic: Logic):
-        if (int(params[0]) == 0):
+        if (int(params[0]) < 5):
             print(f'ERROR Board size incorrect', flush=True)
             return
         game.initBoard(int(params[0]))
@@ -25,12 +25,13 @@ class Commands:
 
     def turn(self, params, game: Game, logic: Logic):
         game.fillBoard(int(params[0]), int(params[1]), '2')
-        game.fillBoard(11, 10, '1')
-        x, y = logic.generateRandomPosition()
+        x, y = logic.getBestMove(game)
+        game.fillBoard(x, y, '1')
         print(f'{x},{y}', flush=True)
 
     def begin(self, params, game: Game, logic: Logic):
-        x, y = logic.generateRandomPosition()
+        x = game.getBoardSize() / 2
+        y = game.getBoardSize() / 2
         print(f'{x},{y}', flush=True)
 
     def board(self, params, game: Game, logic: Logic):
@@ -41,7 +42,7 @@ class Commands:
             coordinate = Parse.getCoordinate()
             game.fillBoard(int(coordinate[0]), int(coordinate[1]), coordinate[2])
             Parse.askForInput()
-        x, y = logic.generateRandomPosition()
+        x, y = logic.getBestMove(game)
         print(f'{x},{y}', flush=True)
 
     def info(self, params, game: Game, logic: Logic):
