@@ -18,10 +18,10 @@ class Commands:
 
     def start(self, params, game: Game, logic: Logic):
         if (int(params[0]) == 0):
-            print(f'ERROR message - unsupported size or other error', flush=True)
+            print(f'ERROR Board size incorrect', flush=True)
             return
         game.initBoard(int(params[0]))
-        print('OK - everything is good', flush=True)
+        print('OK', flush=True)
 
     def turn(self, params, game: Game, logic: Logic):
         game.fillBoard(int(params[0]), int(params[1]), '2')
@@ -45,7 +45,7 @@ class Commands:
         print(f'{x},{y}', flush=True)
 
     def info(self, params, game: Game, logic: Logic):
-        print('info', flush=True)
+        return
 
     def about(self, params, game: Game, logic: Logic):
         print('about', flush=True)
