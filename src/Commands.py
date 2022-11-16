@@ -18,7 +18,7 @@ class Commands:
 
     def start(self, params, game: Game, logic: Logic):
         if (int(params[0]) == 0):
-            print(f'ERROR message - unsupported size or other error')
+            print(f'ERROR message - unsupported size or other error', flush=True)
             return
         game.initBoard(int(params[0]))
         print('OK - everything is good', flush=True)
