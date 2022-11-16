@@ -14,6 +14,11 @@ class Parser:
         self.params = self.args.strip(self.commands).split(",")
         self.params = [x.strip(' ') for x in self.params]
         return (self.commands)
-    
+
+    def getCoordinate(self):
+        coordinate = list()
+        coordinate = self.commands.split(",")
+        return (coordinate)
+
     def getParams(self):
         return (self.params)
