@@ -3,3 +3,6 @@ pbrain-gomoku-ai
 
 #Cache
 src/__pycache__
+
+#test files
+test
