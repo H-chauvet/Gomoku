@@ -1,11 +1,18 @@
 #!/usr/bin/python3
 
 from src.Parser import Parser
+from src.Commands import Commands
+from src.Game import Game
+from src.Logic import Logic
 
 if __name__ == '__main__':
     Parser = Parser()
+    Commands = Commands()
+    Game = Game()
+    Logic = Logic()
+
     Parser.askForInput()
-    
+
     while Parser.getInput().upper() != "END":
-        print("Input is : %s" % Parser.getInput())
+        Commands.executeCommand(Parser.getInput().upper(), Parser.getParams(), Game, Logic)
         Parser.askForInput()
