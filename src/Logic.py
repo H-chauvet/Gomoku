@@ -12,7 +12,7 @@ class Logic:
     def findDefense(self, game: Game, x, y):
         for y in range(y - 4, y + 1):
             # print(game.board[x][y])
-            if game.board[x][y] ==' ':
+            if game.board[x][y] == ' ':
                 self.x = x
                 self.y = y
 
@@ -26,8 +26,8 @@ class Logic:
                         counter += 1
                 if (counter == 4):
                     print("line found")
-                #     self.findDefense(game, i, j)
-                #     return True
+                    self.findDefense(game, i, j)
+                    return True
                 counter = 0
 
         # Colomn
@@ -38,7 +38,7 @@ class Logic:
                         counter += 1
                 if (counter == 4):
                     print("colomn found")
-                #     return True
+                    return True
                 counter = 0
 
         # Diagonal A
@@ -53,4 +53,6 @@ class Logic:
                 self.y = random.randint(0, game.getBoardSize() - 1)
                 if (game.board[self.y][self.x] == ' '):
                     break
+            else:
+                break
         return ((self.x, self.y))
