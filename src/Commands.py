@@ -61,7 +61,7 @@ class Commands:
         if (Commands.check_coordinate(self, params, game, logic) == False):
             return
         game.fillBoard(int(params[0]), int(params[1]), '2')
-        x, y = logic.getBestMove(game)
+        x, y = logic.getBestMove(game, self.size_x, self.size_y)
         game.fillBoard(x, y, '1')
         print(f'{x},{y}', flush=True)
 
