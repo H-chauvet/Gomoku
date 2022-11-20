@@ -75,8 +75,9 @@ class Commands:
             print("Game not start", flush=True)
         if (Commands.check_param(0, params) == False):
             return
-        x = game.getBoardSize() / 2
-        y = game.getBoardSize() / 2
+        x = int(game.getBoardSize() / 2)
+        y = int(game.getBoardSize() / 2)
+        game.fillBoard(x, y, '1')
         print(f'{x},{y}', flush=True)
 
     def board(self, params, game: Game, logic: Logic):
@@ -92,6 +93,7 @@ class Commands:
             game.fillBoard(int(coordinate[0]), int(coordinate[1]), coordinate[2])
             Parse.askForInput()
         x, y = logic.getBestMove(game)
+        game.fillBoard(x, y, '1')
         print(f'{x},{y}', flush=True)
 
     def info(self, params, game: Game, logic: Logic):
