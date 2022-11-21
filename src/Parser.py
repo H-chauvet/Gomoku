@@ -1,5 +1,4 @@
 #!/usr/bin/python3
-from sys import stdin
 
 """! Parser class"""
 class Parser:
