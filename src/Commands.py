@@ -49,8 +49,6 @@ class Commands:
         if (int(params[0]) >= self.size_x or int(params[1]) >= self.size_y):
             print("Coordinate out of range", flush=True)
             return False
-        if (Game.check_valid_case(game, int(params[0]), int(params[1])) == False):
-            return False
         return True
 
     def turn(self, params, game: Game, logic: Logic):

@@ -15,9 +15,3 @@ class Game:
 
     def getBoardSize(self):
         return (len(self.board))
-
-    def check_valid_case(game, x, y) -> bool:
-        if (game.board[x][y] != ' ' or game.board[x][y] != ' '):
-            print("Case already taken", flush=True)
-            return False
-        return True
