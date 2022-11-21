@@ -65,8 +65,6 @@ class Commands:
         if (int(params[0]) >= self.size_x or int(params[1]) >= self.size_y):
             print("Coordinate out of range", flush=True)
             return False
-        if (Game.check_valid_case(game, int(params[0]), int(params[1])) == False):
-            return False
         return True
 
     def turn(self, params, game: Game, logic: Logic):
@@ -82,7 +80,7 @@ class Commands:
         if (Commands.check_coordinate(self, params, game, logic) == False):
             return
         game.fillBoard(int(params[0]), int(params[1]), '2')
-        x, y = logic.getBestMove(game)
+        x, y = logic.getBestMove(game, self.size_x, self.size_y)
         game.fillBoard(x, y, '1')
         print(f'{x},{y}', flush=True)
 
@@ -128,7 +126,7 @@ class Commands:
             coordinate = Parse.getCoordinate()
             game.fillBoard(int(coordinate[0]), int(coordinate[1]), coordinate[2])
             Parse.askForInput()
-        x, y = logic.getBestMove(game)
+        x, y = logic.getBestMove(game, self.size_x, self.size_y)
         game.fillBoard(x, y, '1')
         print(f'{x},{y}', flush=True)
 
