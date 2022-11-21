@@ -6,3 +6,6 @@ src/__pycache__
 
 #test files
 test
+
+#Documentation
+html/
