@@ -18,6 +18,9 @@ $(NAME):
 
 all: 		$(NAME)
 
+tests_run:
+			./tests/tests_launch.sh
+
 clean:
 			rm -f $(NAME)
 
