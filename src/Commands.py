@@ -4,9 +4,11 @@ from src.Game import Game
 from src.Parser import Parser
 from src.Logic import Logic
 
+"""! Commands class"""
 class Commands:
 
     def __init__(self):
+        """! Initialize the commands. """
         self.commands = {
             'START': self.start,
             'TURN': self.turn,
@@ -21,6 +23,10 @@ class Commands:
         self.is_start = False
 
     def check_param(nb_param, params) -> bool:
+        """! Check if the number of parameters is correct
+        @param nb_param Number of parameters
+        @param params List of parameters
+        """
         if nb_param == 4:
             if (len(params) != nb_param - 2):
                 return False
@@ -34,6 +40,11 @@ class Commands:
         return True
 
     def start(self, params, game: Game, logic: Logic):
+        """! Command to start the game
+        @param params List of parameters
+        @param game Game object
+        @param logic Logic object
+        """
         if (Commands.check_param(1, params) == False):
             return
         if (int(params[0]) < 5):
@@ -46,14 +57,22 @@ class Commands:
         print('OK', flush=True)
 
     def check_coordinate(self, params, game: Game, logic: Logic):
+        """! Check if the coordinates are correct
+        @param params List of parameters
+        @param game Game object
+        @param logic Logic object
+        """
         if (int(params[0]) >= self.size_x or int(params[1]) >= self.size_y):
             print("Coordinate out of range", flush=True)
-            return False
-        if (Game.check_valid_case(game, int(params[0]), int(params[1])) == False):
             return False
         return True
 
     def turn(self, params, game: Game, logic: Logic):
+        """! Command to play a turn
+        @param params List of parameters
+        @param game Game object
+        @param logic Logic object
+        """
         if (self.is_start == False):
             print("Game not start", flush=True)
         if (Commands.check_param(4, params) == False):
@@ -61,16 +80,26 @@ class Commands:
         if (Commands.check_coordinate(self, params, game, logic) == False):
             return
         game.fillBoard(int(params[0]), int(params[1]), '2')
-        x, y = logic.getBestMove(game)
+        x, y = logic.getBestMove(game, self.size_x, self.size_y)
         game.fillBoard(x, y, '1')
         print(f'{x},{y}', flush=True)
 
     def display(self, params, game: Game, logic: Logic):
+        """! Command to display the board
+        @param params List of parameters
+        @param game Game object
+        @param logic Logic object
+        """
         if (self.is_start == False):
             print("Game not start", flush=True)
         print(game.board)
 
     def begin(self, params, game: Game, logic: Logic):
+        """! Command to begin the game
+        @param params List of parameters
+        @param game Game object
+        @param logic Logic object
+        """
         if (self.is_start == False):
             print("Game not start", flush=True)
         if (Commands.check_param(0, params) == False):
@@ -81,6 +110,11 @@ class Commands:
         print(f'{x},{y}', flush=True)
 
     def board(self, params, game: Game, logic: Logic):
+        """! Command to fill the board with given arguments
+        @param params List of parameters
+        @param game Game object
+        @param logic Logic object
+        """
         if (self.is_start == False):
             print("Game not start", flush=True)
         if (Commands.check_param(0, params) == False):
@@ -92,19 +126,27 @@ class Commands:
             coordinate = Parse.getCoordinate()
             game.fillBoard(int(coordinate[0]), int(coordinate[1]), coordinate[2])
             Parse.askForInput()
-        x, y = logic.getBestMove(game)
+        x, y = logic.getBestMove(game, self.size_x, self.size_y)
         game.fillBoard(x, y, '1')
         print(f'{x},{y}', flush=True)
 
     def info(self, params, game: Game, logic: Logic):
+        """! Command useless"""
         return
 
     def about(self, params, game: Game, logic: Logic):
+        """! Command to display the information about the game"""
         if (Commands.check_param(0, params) == False):
             return
         print('name="Best IA", version="1.0", author="The Group", country="France"', flush=True)
 
     def executeCommand(self, command, params, game: Game, logic: Logic):
+        """! Execute the command
+        @param command Command to execute
+        @param params List of parameters
+        @param game Game object
+        @param logic Logic object
+        """
         if (command != "START" and command != "TURN" and command != "BEGIN" and command != "BOARD" and command != "INFO" and command != "ABOUT" and command != "DISPLAY"):
             print("Command not found", flush=True)
             return
