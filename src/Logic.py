@@ -8,13 +8,22 @@ class Logic:
     def __init__(self):
         self.x = 0
         self.y = 0
+        self.whichPattern = 0
 
-    def findDefense(self, game: Game, x, y):
-        for y in range(y - 4, y + 1):
-            # print(game.board[x][y])
-            if game.board[x][y] == ' ':
-                self.x = x
-                self.y = y
+    def findDefense(self, game: Game, x, y) -> bool:
+        if (self.whichPattern == 1):
+            for y in range(y - 4, y + 1):
+                if game.board[x][y] == ' ':
+                    self.x = x
+                    self.y = y
+                    return True
+        elif self.whichPattern == 2:
+            for x in range(x - 4, x + 1):
+                if game.board[x][y] == ' ':
+                    self.x = x
+                    self.y = y
+                    return True
+        return False
 
     def finPatternDeffense(self, game: Game, x, y) -> bool:
         counter = 0
@@ -25,10 +34,11 @@ class Logic:
                     if game.board[i][j] == '2':
                         counter += 1
                 if (counter == 4):
-                    print("line found")
-                    self.findDefense(game, i, j)
-                    return True
+                    self.whichPattern = 1
+                    if self.findDefense(game, i, j) == True:
+                        return True
                 counter = 0
+                self.whichPattern = 0
 
         # Colomn
         for j in range(0, y):
@@ -37,9 +47,12 @@ class Logic:
                     if game.board[i][j] == '2':
                         counter += 1
                 if (counter == 4):
-                    print("colomn found")
-                    return True
+                    self.whichPattern = 2
+                    if self.findDefense(game, i, j) == True:
+                        return True
                 counter = 0
+                self.whichPattern = 0
+
 
         # Diagonal A
         # for i in range(0, x - 4):
