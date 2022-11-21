@@ -89,7 +89,8 @@ class Commands:
             coordinate = Parse.getCoordinate()
             game.fillBoard(int(coordinate[0]), int(coordinate[1]), coordinate[2])
             Parse.askForInput()
-        x, y = logic.getBestMove(game)
+        x, y = logic.getBestMove(game, self.size_x, self.size_y)
+        game.fillBoard(x, y, '1')
         print(f'{x},{y}', flush=True)
 
     def info(self, params, game: Game, logic: Logic):

@@ -10,7 +10,7 @@ class Logic:
         self.y = 0
         self.whichPattern = 0
 
-    def findDefense(self, game: Game, x, y) -> bool:
+    def fillCase(self, game: Game, x, y) -> bool:
         if (self.whichPattern == 1):
             for y in range(y - 4, y + 1):
                 if game.board[x][y] == ' ':
@@ -43,7 +43,7 @@ class Logic:
                 y -= 1
         return False
 
-    def finPatternDeffense(self, game: Game, x, y) -> bool:
+    def lastDefense(self, game: Game, x, y) -> bool:
         counter = 0
         # Line
         for i in range(0, y):
@@ -53,7 +53,7 @@ class Logic:
                         counter += 1
                 if (counter == 4):
                     self.whichPattern = 1
-                    if self.findDefense(game, i, j) == True:
+                    if self.fillCase(game, i, j) == True:
                         return True
                 counter = 0
                 self.whichPattern = 0
@@ -66,7 +66,7 @@ class Logic:
                         counter += 1
                 if (counter == 4):
                     self.whichPattern = 2
-                    if self.findDefense(game, i, j) == True:
+                    if self.fillCase(game, i, j) == True:
                         return True
                 counter = 0
                 self.whichPattern = 0
@@ -81,7 +81,7 @@ class Logic:
                     i += 1
                 if (counter == 4):
                     self.whichPattern = 3
-                    if self.findDefense(game, i, j) == True:
+                    if self.fillCase(game, i, j) == True:
                         return True
                 counter = 0
                 self.whichPattern = 0
@@ -104,7 +104,80 @@ class Logic:
                         count_j += 1
                     if (counter == 4):
                         self.whichPattern = 4
-                        if self.findDefense(game, i, j) == True:
+                        if self.fillCase(game, i, j) == True:
+                            return True
+                    counter = 0
+                    count_j = 0
+                    self.whichPattern = 0
+                    j += 4
+                    i -= 5
+                i += 1
+                j = y - 1
+            count_i += 1
+        return False
+
+    def lastAttack(self, game: Game, x, y) -> bool:
+        counter = 0
+        # Line
+        for i in range(0, y):
+            for j in range(0, x - 4):
+                for j in range(j, j + 5):
+                    if game.board[i][j] == '1':
+                        counter += 1
+                if (counter == 4):
+                    self.whichPattern = 1
+                    if self.fillCase(game, i, j) == True:
+                        return True
+                counter = 0
+                self.whichPattern = 0
+
+        # Colomn
+        for j in range(0, y):
+            for i in range(0, x - 4):
+                for i in range(i, i + 5):
+                    if game.board[i][j] == '1':
+                        counter += 1
+                if (counter == 4):
+                    self.whichPattern = 2
+                    if self.fillCase(game, i, j) == True:
+                        return True
+                counter = 0
+                self.whichPattern = 0
+
+        # Diagonal A
+        i = 0
+        while (i != x - 4):
+            for j in range(0, y - 4):
+                for j in range(j, j + 5):
+                    if game.board[i][j] == '1':
+                        counter += 1
+                    i += 1
+                if (counter == 4):
+                    self.whichPattern = 3
+                    if self.fillCase(game, i, j) == True:
+                        return True
+                counter = 0
+                self.whichPattern = 0
+                i -= 5
+            i += 1
+            
+        # Diagonal B
+        i = 0
+        j = y - 1
+        count_j = 0
+        count_i = 0
+        while count_i != x - 4:
+            while (i != x - 4):
+                while j != 4:
+                    while count_j != 5:
+                        if game.board[i][j] == '1':
+                            counter += 1
+                        i += 1
+                        j -= 1
+                        count_j += 1
+                    if (counter == 4):
+                        self.whichPattern = 4
+                        if self.fillCase(game, i, j) == True:
                             return True
                     counter = 0
                     count_j = 0
@@ -117,12 +190,12 @@ class Logic:
         return False
 
     def getBestMove(self, game: Game, x, y):
-        while True:
-            if self.finPatternDeffense(game, x, y) == False:
+        if self.lastAttack(game, x, y) == True:
+            return ((self.x, self.y))
+        elif self.lastDefense(game, x, y) == True:
+            return ((self.x, self.y))
+        else:
+            while (game.board[self.y][self.x] != ' '):
                 self.x = random.randint(0, game.getBoardSize() - 1)
                 self.y = random.randint(0, game.getBoardSize() - 1)
-                if (game.board[self.y][self.x] == ' '):
-                    break
-            else:
-                break
         return ((self.x, self.y))
