@@ -14,7 +14,7 @@ class Parser:
         
         self.args = input()
         
-    def getInput(self):
+    def getInput(self) -> str:
         """! Parsing the user input."""
         
         self.commands = self.args.split(" ")[0]
@@ -22,12 +22,12 @@ class Parser:
         self.params = [x.strip(' ') for x in self.params]
         return (self.commands)
 
-    def getCoordinate(self):
+    def getCoordinate(self) -> list[str]:
         """! Parsing the values for coordinates."""
         
         coordinate: list[str] = self.commands.split(",")
         return (coordinate)
-    def getParams(self):
+    def getParams(self) -> list[str]:
         """! Get params of the user input."""
         
         return (self.params)

@@ -10,7 +10,7 @@ class Logic:
         self.y = 0
         self.whichPattern = 0
 
-    def fillCase(self, game: Game, x, y) -> bool:
+    def fillCase(self, game: Game, x: int, y: int) -> bool:
         if (self.whichPattern == 1):
             for y in range(y - 4, y + 1):
                 if game.board[x][y] == ' ':
@@ -43,7 +43,7 @@ class Logic:
                 y -= 1
         return False
 
-    def lastDefense(self, game: Game, x, y) -> bool:
+    def lastDefense(self, game: Game, x: int, y: int) -> bool:
         counter = 0
         # Line
         for i in range(0, y):
@@ -116,7 +116,7 @@ class Logic:
             count_i += 1
         return False
 
-    def lastAttack(self, game: Game, x, y) -> bool:
+    def lastAttack(self, game: Game, x: int, y: int) -> bool:
         counter = 0
         # Line
         for i in range(0, y):
@@ -189,7 +189,7 @@ class Logic:
             count_i += 1
         return False
 
-    def getBestMove(self, game: Game, x, y):
+    def getBestMove(self, game: Game, x: int , y: int):
         if self.lastAttack(game, x, y) == True:
             return ((self.x, self.y))
         elif self.lastDefense(game, x, y) == True:
