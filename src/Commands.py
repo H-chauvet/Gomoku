@@ -56,7 +56,7 @@ class Commands:
         game.initBoard(int(params[0]))
         print('OK', flush=True)
 
-    def check_coordinate(self, params: list, game: Game, logic: Logic):
+    def check_coordinate(self, params: list, game: Game, logic: Logic) -> bool:
         """! Check if the coordinates are correct
         @param params List of parameters
         @param game Game object

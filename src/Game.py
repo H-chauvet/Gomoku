@@ -1,7 +1,5 @@
 #!/usr/bin/python3
 
-from src.Game import Game 
-
 """! Game class"""
 class Game:
     def __init__(self):
@@ -28,12 +26,12 @@ class Game:
         
         print(self.board)
 
-    def getBoardSize(self):
+    def getBoardSize(self) -> int:
         """! Get the size of the board"""
         
         return (len(self.board))
 
-    def check_valid_case(game: Game, x: int, y: int) -> bool:
+    def check_valid_case(game, x: int, y: int) -> bool:
         """! Check if the case is valid
         @param game The game class
         @param x X coordinate

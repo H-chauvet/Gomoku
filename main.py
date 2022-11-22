@@ -17,8 +17,12 @@ if __name__ == '__main__':
     except OSError as e:
         print("Memory error: %s" % e.strerror)
 
-    Parser.askForInput()
-
-    while Parser.getInput().upper() != "END":
-        Commands.executeCommand(Parser.getInput().upper(), Parser.getParams(), Game, Logic)
+    try:
         Parser.askForInput()
+
+        while Parser.getInput().upper() != "END":
+            Commands.executeCommand(Parser.getInput().upper(), Parser.getParams(), Game, Logic)
+            Parser.askForInput()
+    except KeyboardInterrupt:
+        print("\nCTRL+C pressed, exiting..")
+        exit(0)
