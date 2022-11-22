@@ -22,12 +22,12 @@ class Parser:
         self.params = [x.strip(' ') for x in self.params]
         return (self.commands)
 
-    def getCoordinate(self) -> list[str]:
+    def getCoordinate(self):
         """! Parsing the values for coordinates."""
         
         coordinate: list[str] = self.commands.split(",")
         return (coordinate)
-    def getParams(self) -> list[str]:
+    def getParams(self):
         """! Get params of the user input."""
         
         return (self.params)
