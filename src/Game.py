@@ -30,15 +30,3 @@ class Game:
         """! Get the size of the board"""
         
         return (len(self.board))
-
-    def check_valid_case(game, x: int, y: int) -> bool:
-        """! Check if the case is valid
-        @param game The game class
-        @param x X coordinate
-        @param y Y coordinate
-        """
-        
-        if (game.board[x][y] != ' ' or game.board[x][y] != ' '):
-            print("Case already taken", flush=True)
-            return False
-        return True
