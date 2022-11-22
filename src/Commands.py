@@ -22,7 +22,7 @@ class Commands:
         self.size_y = 0
         self.is_start = False
 
-    def check_param(nb_param, params) -> bool:
+    def check_param(nb_param: int, params: list) -> bool:
         """! Check if the number of parameters is correct
         @param nb_param Number of parameters
         @param params List of parameters
@@ -39,7 +39,7 @@ class Commands:
                 return False  
         return True
 
-    def start(self, params, game: Game, logic: Logic):
+    def start(self, params: list, game: Game, logic: Logic):
         """! Command to start the game
         @param params List of parameters
         @param game Game object
@@ -56,7 +56,7 @@ class Commands:
         game.initBoard(int(params[0]))
         print('OK', flush=True)
 
-    def check_coordinate(self, params, game: Game, logic: Logic):
+    def check_coordinate(self, params: list, game: Game, logic: Logic) -> bool:
         """! Check if the coordinates are correct
         @param params List of parameters
         @param game Game object
@@ -67,7 +67,7 @@ class Commands:
             return False
         return True
 
-    def turn(self, params, game: Game, logic: Logic):
+    def turn(self, params: list, game: Game, logic: Logic):
         """! Command to play a turn
         @param params List of parameters
         @param game Game object
@@ -84,7 +84,7 @@ class Commands:
         game.fillBoard(x, y, '1')
         print(f'{x},{y}', flush=True)
 
-    def display(self, params, game: Game, logic: Logic):
+    def display(self, params: list, game: Game, logic: Logic):
         """! Command to display the board
         @param params List of parameters
         @param game Game object
@@ -94,7 +94,7 @@ class Commands:
             print("Game not start", flush=True)
         print(game.board)
 
-    def begin(self, params, game: Game, logic: Logic):
+    def begin(self, params: list, game: Game, logic: Logic):
         """! Command to begin the game
         @param params List of parameters
         @param game Game object
@@ -109,7 +109,7 @@ class Commands:
         game.fillBoard(x, y, '1')
         print(f'{x},{y}', flush=True)
 
-    def board(self, params, game: Game, logic: Logic):
+    def board(self, params: list, game: Game, logic: Logic):
         """! Command to fill the board with given arguments
         @param params List of parameters
         @param game Game object
@@ -130,17 +130,17 @@ class Commands:
         game.fillBoard(x, y, '1')
         print(f'{x},{y}', flush=True)
 
-    def info(self, params, game: Game, logic: Logic):
+    def info(self, params: list, game: Game, logic: Logic):
         """! Command useless"""
         return
 
-    def about(self, params, game: Game, logic: Logic):
+    def about(self, params: list, game: Game, logic: Logic):
         """! Command to display the information about the game"""
         if (Commands.check_param(0, params) == False):
             return
         print('name="Best IA", version="1.0", author="The Group", country="France"', flush=True)
 
-    def executeCommand(self, command, params, game: Game, logic: Logic):
+    def executeCommand(self, command: str, params: list, game: Game, logic: Logic):
         """! Execute the command
         @param command Command to execute
         @param params List of parameters
