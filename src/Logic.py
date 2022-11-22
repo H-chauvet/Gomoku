@@ -12,6 +12,27 @@ class Logic:
         self.suite = 0
         self.numberToFind = 0
 
+    def evaluationFunction(self, game: Game, alignedPawnNumber, extremityFree) -> int:
+        match alignedPawnNumber:
+            case 4:
+                return 999999
+            case 3:
+                if (extremityFree == 2):
+                    return 999999
+                if (extremityFree == 1):
+                    return 1000
+            case 2:
+                if (extremityFree == 2):
+                    return 500
+                if (extremityFree == 1):
+                    return 100
+            case 1:
+                if (extremityFree == 2):
+                    return 50
+                if (extremityFree == 1):
+                    return 25
+        return 0
+
     def fillCase(self, game: Game, x: int, y: int) -> bool:
         if (self.whichPattern == 1):
             for y in range(y - 4, y + 1):
