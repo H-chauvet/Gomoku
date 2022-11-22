@@ -33,7 +33,7 @@ class Logic:
                     return 25
         return 0
 
-    def fillCase(self, game: Game, x: int, y: int) -> bool:
+    def fillCaseFour(self, game: Game, x: int, y: int) -> bool:
         if (self.whichPattern == 1):
             for y in range(y - 4, y + 1):
                 if game.board[x][y] == ' ':

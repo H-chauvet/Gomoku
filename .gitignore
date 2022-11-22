@@ -11,3 +11,7 @@ result
 
 #Documentation
 html/
+
+build/
+dist/
+pbrain-gomoku-ai.spec
