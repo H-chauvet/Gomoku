@@ -12,7 +12,7 @@ class Logic:
         self.suite = 0
         self.numberToFind = 0
 
-    def fillCase(self, game: Game, x: int, y: int) -> bool:
+    def fillCaseFour(self, game: Game, x: int, y: int) -> bool:
         if (self.whichPattern == 1):
             for y in range(y - 4, y + 1):
                 if game.board[x][y] == ' ':
@@ -150,6 +150,41 @@ class Logic:
                     self.x = x + 3
                     self.y = y + 3
                     return True
+        elif self.whichPattern == 4:
+            x -= 5
+            y += 5
+            if (game.board[x + 1][y - 1] == '2' and game.board[x + 2][y - 2] == '2' and game.board[x + 3][y - 3] == '2'):
+                if game.board[x][y] == ' ':
+                    self.x = x
+                    self.y = y
+                    return True                    
+                elif game.board[x + 4][y - 4] == ' ':
+                    self.x = x + 4
+                    self.y = y - 4
+                    return True
+            elif game.board[x + 4][y - 4] == '2' and game.board[x + 3][y - 3] == '2' and game.board[x + 2][y - 2] == '2':
+                if game.board[x + 1][y - 1] == ' ':
+                    self.x = x + 1
+                    self.y = y - 1
+                    return True
+            elif game.board[x][y] == '2' and game.board[x + 1][y - 1] == '2' and game.board[x + 2][y - 2] == '2':
+                if game.board[x + 3][y - 3] == ' ':
+                    self.x = x + 3
+                    self.y = y - 3
+                    return True
+            elif (game.board[x][y] == '2' and game.board[x + 1][y - 1] == '2' and game.board[x + 2][y - 2] == ' ' and game.board[x + 3][y - 3] == '2' and game.board[x + 4][y - 4] == ' ') or (game.board[x][y] == ' ' and game.board[x + 1][y - 1] == '2' and game.board[x + 2][y - 2] == '2' and game.board[x + 3][y - 3] == ' ' and game.board[x + 4][y - 4] == '2') or (game.board[x][y] == '2' and game.board[x + 1][y - 1] == ' ' and game.board[x + 2][y - 2] == '2' and game.board[x + 3][y - 3] == '2' and game.board[x + 4][y - 4] == ' ') or (game.board[x][y] == ' ' and game.board[x + 1][y - 1] == '2' and game.board[x + 2][y - 2] == ' ' and game.board[x + 3][y - 3] == '2' and game.board[x + 4][y - 4] == '2'):
+                if game.board[x + 1][y - 1] == ' ':
+                    self.x = x + 1
+                    self.y = y - 1
+                    return True
+                elif game.board[x + 2][y - 2] == ' ':
+                    self.x = x + 2
+                    self.y = y - 2
+                    return True
+                elif game.board[x + 3][y - 3] == ' ':
+                    self.x = x + 3
+                    self.y = y - 3
+                    return True
         return False
 
     def fillCase(self, game: Game, x, y) -> bool:
@@ -213,7 +248,7 @@ class Logic:
         count_i = 0
         while count_i != x - 4:
             while (i != x - 4):
-                while j != 4:
+                while j != 3:
                     while count_j != 5:
                         if game.board[i][j] == self.numberToFind:
                             counter += 1
