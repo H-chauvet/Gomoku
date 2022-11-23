@@ -264,7 +264,7 @@ class Logic:
         else:
             self.x = random.randint(0, x - 1)
             self.y = random.randint(0, y - 1)
-            while (game.board[self.y][self.x] != ' '):
+            while (game.board[self.x][self.y] != ' '):
                 self.x = random.randint(0, x)
                 self.y = random.randint(0, y)
         return ((self.x, self.y))
