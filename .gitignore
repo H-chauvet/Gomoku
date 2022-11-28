@@ -1,5 +1,13 @@
 #Binary
 pbrain-gomoku-ai
+pbrain-gomoku-ai.exe
+pbrain-gomoku-ai.spec
+
+#Build
+/build
+
+#Dist
+/dist
 
 #Cache
 src/__pycache__
