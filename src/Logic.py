@@ -244,6 +244,16 @@ class Logic:
         # si case de chaque coté des 3 aligné en placer sur un des deux
         return False
 
+    def controlledRandom(self, game: Game, x, y):
+        for i in range(len(game.board) - 1):
+            for j in range(len(game.board[i]) - 1):
+                if game.board[i + 1][j] == '1' or game.board[i - 1][j] == '1' or game.board[i][j + 1] == '1' or game.board[i][j - 1] == '1' or game.board[i + 1][j + 1] == '1' or game.board[i - 1][j - 1] == '1' or game.board[i + 1][j - 1] == '1' or game.board[i - 1][j + 1] == '1':
+                    if game.board[i][j] == ' ':
+                        self.x = i
+                        self.y = j
+                        return True
+        return False
+        
     def getBestMove(self, game: Game, x, y):
         self.suite = 4
         self.numberToFind = '1'
@@ -261,10 +271,12 @@ class Logic:
         self.numberToFind = '1'
         if self.semiAttack(game, x, y) == True:
             return ((self.x, self.y))
+        if self.controlledRandom(game, x, y) == True:
+            return ((self.x, self.y))
         else:
             self.x = random.randint(0, x - 1)
             self.y = random.randint(0, y - 1)
             while (game.board[self.x][self.y] != ' '):
-                self.x = random.randint(0, x)
-                self.y = random.randint(0, y)
+                self.x = random.randint(0, x - 1)
+                self.y = random.randint(0, y - 1)
         return ((self.x, self.y))
