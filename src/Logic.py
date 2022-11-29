@@ -361,7 +361,7 @@ class Logic:
         if self.findPattern(game, x, y) == True:
             return True
         return False
-
+        
     def getBestMove(self, game: Game, x, y):
         self.size_tab = x - 1
         self.suite = 4
@@ -381,11 +381,10 @@ class Logic:
         self.numberToFind = '2'
         if self.semiDefense(game, x, y) == True:
             return ((self.x, self.y))
-
         else:
             self.x = random.randint(0, x - 1)
             self.y = random.randint(0, y - 1)
-            while (game.board[self.y][self.x] != ' '):
-                self.x = random.randint(0, x)
-                self.y = random.randint(0, y)
+            while (game.board[self.x][self.y] != ' '):
+                self.x = random.randint(0, x - 1)
+                self.y = random.randint(0, y - 1)
         return ((self.x, self.y))
