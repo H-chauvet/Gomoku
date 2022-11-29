@@ -12,25 +12,24 @@ class Logic:
         self.suite = 0
         self.numberToFind = 0
 
-    def evaluationFunction(self, game: Game, alignedPawnNumber, extremityFree) -> int:
-        match alignedPawnNumber:
-            case 4:
-                return 999999
-            case 3:
-                if (extremityFree == 2):
-                    return 999999
-                if (extremityFree == 1):
-                    return 1000
-            case 2:
-                if (extremityFree == 2):
-                    return 500
-                if (extremityFree == 1):
-                    return 100
-            case 1:
-                if (extremityFree == 2):
-                    return 50
-                if (extremityFree == 1):
-                    return 25
+    def evaluationFunction(self, alignedPawnNumber, extremityFree) -> int:
+        if (alignedPawnNumber == 4):
+            return 6
+        if (alignedPawnNumber == 3):
+            if (extremityFree == 2):
+                return 6
+            if (extremityFree == 1):
+                return 5
+        if (alignedPawnNumber == 2):
+            if (extremityFree == 2):
+                return 4
+            if (extremityFree == 1):
+                return 3
+        if (alignedPawnNumber == 1):
+            if (extremityFree == 2):
+                return 2
+            if (extremityFree == 1):
+                return 1
         return 0
 
     def fillCaseFour(self, game: Game, x: int, y: int) -> bool:
