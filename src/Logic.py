@@ -12,6 +12,8 @@ class Logic:
         self.whichPattern = 0
         self.suite = 0
         self.numberToFind = 0
+        self.isAttack = False
+        self.size_tab = 20
 
     def evaluationFunction(self, alignedPawnNumber, extremityFree) -> int:
         if (alignedPawnNumber == 4):
@@ -188,7 +190,82 @@ class Logic:
                 y -= 1
         return False
 
-    def fillCaseThree(self, game: Game, x, y) -> bool:
+    def fillCaseThreeA(self, game: Game, x, y) -> bool:
+        if self.whichPattern == 1:
+            # Line
+            if y + 1 <= self.size_tab and y - 5 <= self.size_tab:
+                if (game.board[x][y - 3] == '1' and game.board[x][y - 2] == '1' and game.board[x][y - 1] == '1'):
+                        if game.board[x][y] == ' ' and game.board[x][y + 1] == ' ' and game.board[x][y - 4] == ' ' and game.board[x][y - 5] == ' ':
+                            self.x = x
+                            self.y = y
+                            return True
+                elif (game.board[x][y + 1] == ' ' and game.board[x][y - 1] == ' ' and game.board[x][y - 4] == ' ') or (game.board[x][y - 5] == ' ' and game.board[x][y - 3] == ' ' and game.board[x][y] == ' ')  or (game.board[x][y - 5] == ' ' and game.board[x][y - 2] == ' ' and game.board[x][y] == ' '):
+                    if game.board[x][y - 3] == ' ':
+                        self.x = x
+                        self.y = y - 3
+                        return True
+                    elif game.board[x][y - 2] == ' ':
+                        self.x = x
+                        self.y = y - 2
+                        return True
+        elif self.whichPattern == 2:
+            # Colomn
+            if x + 1 <= self.size_tab and x - 5 <= self.size_tab:
+                if (game.board[x - 3][y] == '1' and game.board[x - 2][y] == '1' and game.board[x - 1][y] == '1'):
+                        if game.board[x][y] == ' ' and game.board[x + 1][y] == ' ' and game.board[x - 4][y] == ' ' and game.board[x - 5][y] == ' ':
+                            self.x = x
+                            self.y = y
+                            return True
+                elif (game.board[x + 1][y] == ' ' and game.board[x - 1][y] == ' ' and game.board[x - 4][y] == ' ') or (game.board[x - 5][y] == ' ' and game.board[x - 3][y] == ' ' and game.board[x][y] == ' ')  or (game.board[x - 5][y] == ' ' and game.board[x - 2][y] == ' ' and game.board[x][y] == ' '):
+                    if game.board[x - 3][y] == ' ':
+                        self.x = x - 3
+                        self.y = y
+                        return True
+                    elif game.board[x - 2][y] == ' ':
+                        self.x = x - 2
+                        self.y = y
+                        return True
+        elif self.whichPattern == 3:
+            # Diagonal A
+            x -= 5
+            y -= 4
+            if x - 1 <= self.size_tab and x + 6 <= self.size_tab and y - 1 <= self.size_tab and y + 6 <= self.size_tab:
+                if (game.board[x + 2][y + 2] == '1' and game.board[x + 3][y + 3] == '1' and game.board[x + 4][y + 4] == '1'):
+                    if game.board[x - 1][y - 1] == ' ' and game.board[x][y] == ' ' and game.board[x + 5][y + 5] == ' ' and game.board[x + 6][y + 6] == ' ':
+                        self.x = x + 1
+                        self.y = y + 1
+                        return True
+                elif (game.board[x + 1][y] == ' ' and game.board[x - 1][y] == ' ' and game.board[x - 4][y] == ' ') or (game.board[x - 5][y] == ' ' and game.board[x - 3][y] == ' ' and game.board[x][y] == ' ')  or (game.board[x - 5][y] == ' ' and game.board[x - 2][y] == ' ' and game.board[x][y] == ' '):
+                    if game.board[x + 3][y + 3] == ' ':
+                        self.x = x + 3
+                        self.y = y + 3
+                        return True
+                    elif game.board[x + 2][y + 2] == ' ':
+                        self.x = x + 2
+                        self.y = y + 2
+                        return True
+        elif self.whichPattern == 4:
+            # Diagonal B
+            x -= 5
+            y += 5
+            if y - 6 <= self.size_tab and x + 6 <= self.size_tab and y<= self.size_tab and x <= self.size_tab:
+                if (game.board[x + 2][y - 2] == '1' and game.board[x + 3][y - 3] == '1' and game.board[x + 4][y - 4] == '1'):
+                    if game.board[x + 1][y - 1] == ' ' and game.board[x][y] == ' ' and game.board[x + 5][y - 5] == ' ' and game.board[x + 6][y - 6] == ' ':
+                        self.x = x + 1
+                        self.y = y - 1
+                        return True
+                elif (game.board[x + 1][y] == ' ' and game.board[x - 1][y] == ' ' and game.board[x - 4][y] == ' ') or (game.board[x - 5][y] == ' ' and game.board[x - 3][y] == ' ' and game.board[x][y] == ' ')  or (game.board[x - 5][y] == ' ' and game.board[x - 2][y] == ' ' and game.board[x][y] == ' '):
+                    if game.board[x + 3][y - 3] == ' ':
+                        self.x = x + 3
+                        self.y = y - 3
+                        return True
+                    elif game.board[x + 2][y - 2] == ' ':
+                        self.x = x + 2
+                        self.y = y - 2
+                        return True
+        return False
+
+    def fillCaseThreeD(self, game: Game, x, y) -> bool:
         if (self.whichPattern == 1):
             # Line
             if (game.board[x][y - 3] == '2' and game.board[x][y - 2] == '2' and game.board[x][y - 1] == '2'):
@@ -293,6 +370,41 @@ class Logic:
                     self.x = x + 3
                     self.y = y + 3
                     return True
+        elif self.whichPattern == 4:
+            x -= 5
+            y += 5
+            if (game.board[x + 1][y - 1] == '2' and game.board[x + 2][y - 2] == '2' and game.board[x + 3][y - 3] == '2'):
+                if game.board[x][y] == ' ':
+                    self.x = x
+                    self.y = y
+                    return True                    
+                elif game.board[x + 4][y - 4] == ' ':
+                    self.x = x + 4
+                    self.y = y - 4
+                    return True
+            elif game.board[x + 4][y - 4] == '2' and game.board[x + 3][y - 3] == '2' and game.board[x + 2][y - 2] == '2':
+                if game.board[x + 1][y - 1] == ' ':
+                    self.x = x + 1
+                    self.y = y - 1
+                    return True
+            elif game.board[x][y] == '2' and game.board[x + 1][y - 1] == '2' and game.board[x + 2][y - 2] == '2':
+                if game.board[x + 3][y - 3] == ' ':
+                    self.x = x + 3
+                    self.y = y - 3
+                    return True
+            elif (game.board[x][y] == '2' and game.board[x + 1][y - 1] == '2' and game.board[x + 2][y - 2] == ' ' and game.board[x + 3][y - 3] == '2' and game.board[x + 4][y - 4] == ' ') or (game.board[x][y] == ' ' and game.board[x + 1][y - 1] == '2' and game.board[x + 2][y - 2] == '2' and game.board[x + 3][y - 3] == ' ' and game.board[x + 4][y - 4] == '2') or (game.board[x][y] == '2' and game.board[x + 1][y - 1] == ' ' and game.board[x + 2][y - 2] == '2' and game.board[x + 3][y - 3] == '2' and game.board[x + 4][y - 4] == ' ') or (game.board[x][y] == ' ' and game.board[x + 1][y - 1] == '2' and game.board[x + 2][y - 2] == ' ' and game.board[x + 3][y - 3] == '2' and game.board[x + 4][y - 4] == '2'):
+                if game.board[x + 1][y - 1] == ' ':
+                    self.x = x + 1
+                    self.y = y - 1
+                    return True
+                elif game.board[x + 2][y - 2] == ' ':
+                    self.x = x + 2
+                    self.y = y - 2
+                    return True
+                elif game.board[x + 3][y - 3] == ' ':
+                    self.x = x + 3
+                    self.y = y - 3
+                    return True
         return False
 
     def fillCase(self, game: Game, x, y) -> bool:
@@ -300,8 +412,12 @@ class Logic:
             if self.fillCaseFour(game, x, y) == True:
                 return True
         elif self.suite == 3:
-            if self.fillCaseThree(game, x, y) == True:
-                return True
+            if self.isAttack == True:
+                if self.fillCaseThreeA(game, x, y) == True:
+                    return True
+            elif self.isAttack == False:
+                if self.fillCaseThreeD(game, x, y) == True:
+                    return True
         return False
 
     def findPattern(self, game: Game, x, y) -> bool:
@@ -356,7 +472,7 @@ class Logic:
         count_i = 0
         while count_i != x - 4:
             while (i != x - 4):
-                while j != 4:
+                while j != 3:
                     while count_j != 5:
                         if game.board[i][j] == self.numberToFind:
                             counter += 1
@@ -378,16 +494,19 @@ class Logic:
         return False
 
     def semiDefense(self, game: Game, x, y) -> bool:
-        self.suite = 3
+        self.isAttack = False
         if self.findPattern(game, x, y) == True:
             return True
         return False
 
     def semiAttack(self, game: Game, x, y) -> bool:
-        # si case de chaque coté des 3 aligné en placer sur un des deux
+        self.isAttack = True
+        if self.findPattern(game, x, y) == True:
+            return True
         return False
-
+        
     def getBestMove(self, game: Game, x, y):
+        self.size_tab = x - 1
         self.suite = 4
         self.numberToFind = '1'
         if self.findPattern(game, x, y) == True:
@@ -398,11 +517,12 @@ class Logic:
             return ((self.x, self.y))
 
         self.suite = 3
-        if self.semiDefense(game, x, y) == True:
-            return ((self.x, self.y))
-
         self.numberToFind = '1'
         if self.semiAttack(game, x, y) == True:
+            return ((self.x, self.y))
+
+        self.numberToFind = '2'
+        if self.semiDefense(game, x, y) == True:
             return ((self.x, self.y))
         else:
             self.x, self.y = self.analizeNextTurn(game)
