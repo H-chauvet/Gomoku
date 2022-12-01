@@ -2,6 +2,7 @@
 
 import random
 from src.Game import Game 
+import copy
 
 class Logic:
 
@@ -51,16 +52,12 @@ class Logic:
         while (j - 1 >= 0 and new_board[i][index] == '1'):
             alignedPawnNumber += 1
             index -= 1
-            if (index < 0):
-                break
         if (index >= 0 and new_board[i][index] == ' '):
             extremityFree += 1
         index = j + 1
         while (j + 1 <= len(new_board) - 1 and new_board[i][index] == '1'):
             alignedPawnNumber += 1
             index += 1
-            if (index > len(new_board) - 1):
-                break
         if (index <= len(new_board) - 1 and new_board[i][index] == ' '):
             extremityFree += 1
         evaluation = self.evaluationFunction(alignedPawnNumber + 1, extremityFree)
@@ -120,42 +117,34 @@ class Logic:
         while (i - 1 >= 0 and new_board[index][j] == '1'):
             alignedPawnNumber += 1
             index -= 1
-            if (index < 0):
-                break
         if (index >= 0 and new_board[index][j] == ' '):
             extremityFree += 1
         index = i + 1
         while (i + 1 <= len(new_board) - 1 and new_board[index][j] == '1'):
             alignedPawnNumber += 1
             index += 1
-            if (index > len(new_board) - 1):
-                break
         if (index <= len(new_board) - 1 and new_board[index][j] == ' '):
             extremityFree += 1
         evaluation = self.evaluationFunction(alignedPawnNumber + 1, extremityFree)
         return (evaluation)
 
     def analizeNextTurn(self, game: Game):
-        new_board = game.board
-        #self.fill_file(new_board)
-        #for i in range(len(new_board)):
-        #    for j in range(len(new_board)):
-        #       new_board = game.board
-        i = 7
-        j = 9
-        if (game.board[i][j] != ' '):
-            return
-        evaluation = self.check_horizontally(i, j, new_board)
-        ret = self.check_vertically(i, j, new_board)
-        if ret > evaluation:
-            evaluation = ret
-        ret = self.check_left_right_diagonally(i, j, new_board)
-        if ret > evaluation:
-            evaluation = ret
-        ret = self.check_right_left_diagonally(i, j, new_board)
-        if ret > evaluation:
-            evaluation = ret
-        new_board[i][j] = str(evaluation)
+        new_board = copy.deepcopy(game.board)
+        for i in range(len(new_board)):
+            for j in range(len(new_board)):
+                if (game.board[i][j] != ' '):
+                    continue
+                evaluation = self.check_horizontally(i, j, new_board)
+                ret = self.check_vertically(i, j, new_board)
+                if ret > evaluation:
+                    evaluation = ret
+                ret = self.check_left_right_diagonally(i, j, new_board)
+                if ret > evaluation:
+                    evaluation = ret
+                ret = self.check_right_left_diagonally(i, j, new_board)
+                if ret > evaluation:
+                    evaluation = ret
+                new_board[i][j] = str(evaluation)
         self.fill_file(new_board)
 
     def fillCaseFour(self, game: Game, x: int, y: int) -> bool:
@@ -411,7 +400,6 @@ class Logic:
         else:
             self.x = random.randint(0, x - 1)
             self.y = random.randint(0, y - 1)
-            print(self.x, self.y)
             while (game.board[self.x][self.y] != ' '):
                 self.x = random.randint(0, x - 1)
                 self.y = random.randint(0, y - 1)
