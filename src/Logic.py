@@ -14,23 +14,95 @@ class Logic:
 
     def evaluationFunction(self, alignedPawnNumber, extremityFree) -> int:
         if (alignedPawnNumber == 4):
-            return 6
+            return 8
         if (alignedPawnNumber == 3):
+            if (extremityFree == 2):
+                return 8
+            if (extremityFree == 1):
+                return 7
+        if (alignedPawnNumber == 2):
             if (extremityFree == 2):
                 return 6
             if (extremityFree == 1):
                 return 5
-        if (alignedPawnNumber == 2):
+        if (alignedPawnNumber == 1):
             if (extremityFree == 2):
                 return 4
             if (extremityFree == 1):
                 return 3
-        if (alignedPawnNumber == 1):
-            if (extremityFree == 2):
-                return 2
-            if (extremityFree == 1):
-                return 1
         return 0
+
+    def fill_file(self, board):
+        fichier = open("data.txt", "w")
+        for i in range(len(board)):
+            for j in range(len(board[i])):
+                if (board[i][j] == ' ' or board[i][j] == '1' or board[i][j] == '2'):
+                    fichier.write(' ')
+                else:    
+                    fichier.write(board[i][j])
+            fichier.write("\n")
+        fichier.close()
+
+    def check_horizontally(self, i, j, new_board):
+        index = j - 1
+        alignedPawnNumber = 0
+        extremityFree = 0
+
+        while (j - 1 >= 0 and new_board[i][index] == '1'):
+            alignedPawnNumber += 1
+            index -= 1
+            if (index < 0):
+                break
+        if (index >= 0 and new_board[i][index] == ' '):
+            extremityFree += 1
+        index = j + 1
+        while (j + 1 <= len(new_board) - 1 and new_board[i][index] == '1'):
+            alignedPawnNumber += 1
+            index += 1
+            if (index > len(new_board) - 1):
+                break
+        if (index <= len(new_board) - 1 and new_board[i][index] == ' '):
+            extremityFree += 1
+        evaluation = self.evaluationFunction(alignedPawnNumber + 1, extremityFree)
+        return (evaluation)
+
+    def check_vertically(self, i, j, new_board):
+        index = i - 1
+        alignedPawnNumber = 0
+        extremityFree = 0
+
+        while (i - 1 >= 0 and new_board[index][j] == '1'):
+            alignedPawnNumber += 1
+            index -= 1
+            if (index < 0):
+                break
+        if (index >= 0 and new_board[index][j] == ' '):
+            extremityFree += 1
+        index = i + 1
+        while (i + 1 <= len(new_board) - 1 and new_board[index][j] == '1'):
+            alignedPawnNumber += 1
+            index += 1
+            if (index > len(new_board) - 1):
+                break
+        if (index <= len(new_board) - 1 and new_board[index][j] == ' '):
+            extremityFree += 1
+        evaluation = self.evaluationFunction(alignedPawnNumber + 1, extremityFree)
+        return (evaluation)
+
+    def analizeNextTurn(self, game: Game):
+        new_board = game.board
+        #self.fill_file(new_board)
+        #for i in range(len(new_board)):
+        #    for j in range(len(new_board)):
+        #       new_board = game.board
+        i = 19
+        j = 19
+        if (game.board[i][j] != ' '):
+            return
+        evaluation = self.check_horizontally(i, j, new_board)
+        evaluation = self.check_vertically(i, j, new_board)
+        new_board[i][j] = str(evaluation)
+        self.fill_file(new_board)
 
     def fillCaseFour(self, game: Game, x: int, y: int) -> bool:
         if (self.whichPattern == 1):
@@ -265,6 +337,7 @@ class Logic:
         return False
 
     def getBestMove(self, game: Game, x, y):
+        self.analizeNextTurn(game)
         self.suite = 4
         self.numberToFind = '1'
         if self.findPattern(game, x, y) == True:
@@ -284,7 +357,8 @@ class Logic:
         else:
             self.x = random.randint(0, x - 1)
             self.y = random.randint(0, y - 1)
-            while (game.board[self.y][self.x] != ' '):
-                self.x = random.randint(0, x)
-                self.y = random.randint(0, y)
+            print(self.x, self.y)
+            while (game.board[self.x][self.y] != ' '):
+                self.x = random.randint(0, x - 1)
+                self.y = random.randint(0, y - 1)
         return ((self.x, self.y))
