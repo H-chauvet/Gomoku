@@ -130,21 +130,29 @@ class Logic:
 
     def analizeNextTurn(self, game: Game):
         new_board = copy.deepcopy(game.board)
+        best_evaluation = 0
+        best_i = 0
+        best_j = 0
+        
         for i in range(len(new_board)):
             for j in range(len(new_board)):
                 if (game.board[i][j] != ' '):
                     continue
-                evaluation = self.check_horizontally(i, j, new_board)
-                ret = self.check_vertically(i, j, new_board)
+                evaluation = self.check_horizontally(i, j, game.board)
+                ret = self.check_vertically(i, j, game.board)
                 if ret > evaluation:
                     evaluation = ret
-                ret = self.check_left_right_diagonally(i, j, new_board)
+                ret = self.check_left_right_diagonally(i, j, game.board)
                 if ret > evaluation:
                     evaluation = ret
-                ret = self.check_right_left_diagonally(i, j, new_board)
+                ret = self.check_right_left_diagonally(i, j, game.board)
                 if ret > evaluation:
                     evaluation = ret
                 new_board[i][j] = str(evaluation)
+                if evaluation > best_evaluation:
+                    best_evaluation = evaluation
+                    best_i = i
+                    best_j = j
         self.fill_file(new_board)
 
     def fillCaseFour(self, game: Game, x: int, y: int) -> bool:
