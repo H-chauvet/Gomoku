@@ -135,7 +135,7 @@ class Logic:
         best_evaluation = 0
         best_i = 0
         best_j = 0
-        
+
         for i in range(len(new_board)):
             for j in range(len(new_board)):
                 if (game.board[i][j] != ' '):
@@ -526,9 +526,7 @@ class Logic:
             return ((self.x, self.y))
         else:
             self.x, self.y = self.analizeNextTurn(game)
-            #self.x = random.randint(0, x - 1)
-            #self.y = random.randint(0, y - 1)
-            #while (game.board[self.x][self.y] != ' '):
-            #    self.x = random.randint(0, x - 1)
-            #    self.y = random.randint(0, y - 1)
+            while (game.board[self.x][self.y] != ' '):
+                self.x = random.randint(0, x - 1)
+                self.y = random.randint(0, y - 1)
         return ((self.x, self.y))
