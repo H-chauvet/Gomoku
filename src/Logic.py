@@ -153,7 +153,7 @@ class Logic:
                     best_evaluation = evaluation
                     best_i = i
                     best_j = j
-        self.fill_file(new_board)
+        return (best_i, best_j)
 
     def fillCaseFour(self, game: Game, x: int, y: int) -> bool:
         if (self.whichPattern == 1):
@@ -388,7 +388,6 @@ class Logic:
         return False
 
     def getBestMove(self, game: Game, x, y):
-        self.analizeNextTurn(game)
         self.suite = 4
         self.numberToFind = '1'
         if self.findPattern(game, x, y) == True:
@@ -406,9 +405,10 @@ class Logic:
         if self.semiAttack(game, x, y) == True:
             return ((self.x, self.y))
         else:
-            self.x = random.randint(0, x - 1)
-            self.y = random.randint(0, y - 1)
-            while (game.board[self.x][self.y] != ' '):
-                self.x = random.randint(0, x - 1)
-                self.y = random.randint(0, y - 1)
+            self.x, self.y = self.analizeNextTurn(game)
+            #self.x = random.randint(0, x - 1)
+            #self.y = random.randint(0, y - 1)
+            #while (game.board[self.x][self.y] != ' '):
+            #    self.x = random.randint(0, x - 1)
+            #    self.y = random.randint(0, y - 1)
         return ((self.x, self.y))
