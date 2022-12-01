@@ -14,7 +14,7 @@ class Logic:
 
     def evaluationFunction(self, alignedPawnNumber, extremityFree) -> int:
         if (alignedPawnNumber == 4):
-            return 8
+            return 9
         if (alignedPawnNumber == 3):
             if (extremityFree == 2):
                 return 8
@@ -99,7 +99,6 @@ class Logic:
             alignedPawnNumber += 1
             index_i -= 1
             index_j += 1
-        print(index_i, index_j)
         if (index_i >= 0 and index_j <= len(new_board) - 1 and new_board[index_i][index_j] == ' '):
             extremityFree += 1
         index_i = i + 1
@@ -142,14 +141,20 @@ class Logic:
         #for i in range(len(new_board)):
         #    for j in range(len(new_board)):
         #       new_board = game.board
-        i = 0
-        j = 0
+        i = 7
+        j = 9
         if (game.board[i][j] != ' '):
             return
         evaluation = self.check_horizontally(i, j, new_board)
-        evaluation = self.check_vertically(i, j, new_board)
-        evaluation = self.check_left_right_diagonally(i, j, new_board)
-        evaluation = self.check_right_left_diagonally(i, j, new_board)
+        ret = self.check_vertically(i, j, new_board)
+        if ret > evaluation:
+            evaluation = ret
+        ret = self.check_left_right_diagonally(i, j, new_board)
+        if ret > evaluation:
+            evaluation = ret
+        ret = self.check_right_left_diagonally(i, j, new_board)
+        if ret > evaluation:
+            evaluation = ret
         new_board[i][j] = str(evaluation)
         self.fill_file(new_board)
 
