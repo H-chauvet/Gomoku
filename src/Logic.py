@@ -48,6 +48,7 @@ class Logic:
 
     def check_horizontally(self, i, j, new_board):
         index = j - 1
+        spaceFree = 0
         alignedPawnNumber = 0
         extremityFree = 0
 
@@ -55,19 +56,28 @@ class Logic:
             alignedPawnNumber += 1
             index -= 1
         if (index >= 0 and new_board[i][index] == ' '):
+            while (index >= 0 and new_board[i][index] == ' '):
+                spaceFree += 1
+                index -= 1
             extremityFree += 1
         index = j + 1
         while (j + 1 <= len(new_board) - 1 and new_board[i][index] == '1'):
             alignedPawnNumber += 1
             index += 1
         if (index <= len(new_board) - 1 and new_board[i][index] == ' '):
+            while (index <= len(new_board) - 1 and new_board[i][index] == ' '):
+                spaceFree += 1
+                index += 1
             extremityFree += 1
         evaluation = self.evaluationFunction(alignedPawnNumber + 1, extremityFree)
+        if (spaceFree + alignedPawnNumber < 5):
+            return 0
         return (evaluation)
 
     def check_left_right_diagonally(self, i, j, new_board):
         index_i = i - 1
         index_j = j - 1
+        spaceFree = 0
         alignedPawnNumber = 0
         extremityFree = 0
 
@@ -76,6 +86,10 @@ class Logic:
             index_i -= 1
             index_j -= 1
         if (index_i >= 0 and index_j >= 0 and new_board[index_i][index_j] == ' '):
+            while (index_i >= 0 and index_j >= 0 and new_board[index_i][index_j] == ' '):
+                spaceFree += 1
+                index_i -= 1
+                index_j -= 1
             extremityFree += 1
         index_i = i + 1
         index_j = j + 1
@@ -84,13 +98,20 @@ class Logic:
             index_i += 1
             index_j += 1
         if (index_i <= len(new_board) - 1 and index_j <= len(new_board) - 1 and new_board[index_i][index_j] == ' '):
+            while (index_i <= len(new_board) - 1 and index_j <= len(new_board) - 1 and new_board[index_i][index_j] == ' '):
+                spaceFree += 1
+                index_i += 1
+                index_j += 1
             extremityFree += 1
         evaluation = self.evaluationFunction(alignedPawnNumber + 1, extremityFree)
+        if (spaceFree + alignedPawnNumber < 5):
+            return 0
         return (evaluation)
 
     def check_right_left_diagonally(self, i, j, new_board):
         index_i = i - 1
         index_j = j + 1
+        spaceFree = 0
         alignedPawnNumber = 0
         extremityFree = 0
 
@@ -99,6 +120,10 @@ class Logic:
             index_i -= 1
             index_j += 1
         if (index_i >= 0 and index_j <= len(new_board) - 1 and new_board[index_i][index_j] == ' '):
+            while (index_i >= 0 and index_j <= len(new_board) - 1 and new_board[index_i][index_j] == ' '):
+                spaceFree += 1
+                index_i -= 1
+                index_j += 1
             extremityFree += 1
         index_i = i + 1
         index_j = j - 1
@@ -107,12 +132,19 @@ class Logic:
             index_i += 1
             index_j -= 1
         if (index_i <= len(new_board) - 1 and index_j >= 0 and new_board[index_i][index_j] == ' '):
+            while (index_i <= len(new_board) - 1 and index_j >= 0 and new_board[index_i][index_j] == ' '):
+                spaceFree += 1
+                index_i += 1
+                index_j -= 1
             extremityFree += 1
         evaluation = self.evaluationFunction(alignedPawnNumber + 1, extremityFree)
+        if (spaceFree + alignedPawnNumber < 5):
+            return 0
         return (evaluation)
 
     def check_vertically(self, i, j, new_board):
         index = i - 1
+        spaceFree = 0
         alignedPawnNumber = 0
         extremityFree = 0
 
@@ -121,13 +153,21 @@ class Logic:
             index -= 1
         if (index >= 0 and new_board[index][j] == ' '):
             extremityFree += 1
+            while (index >= 0 and new_board[index][j] == ' '):
+                spaceFree += 1
+                index -= 1
         index = i + 1
         while (i + 1 <= len(new_board) - 1 and new_board[index][j] == '1'):
             alignedPawnNumber += 1
             index += 1
         if (index <= len(new_board) - 1 and new_board[index][j] == ' '):
             extremityFree += 1
+            while (index <= len(new_board) - 1 and new_board[index][j] == ' '):
+                spaceFree += 1
+                index += 1
         evaluation = self.evaluationFunction(alignedPawnNumber + 1, extremityFree)
+        if (spaceFree + alignedPawnNumber < 5):
+            return 0
         return (evaluation)
 
     def analizeNextTurn(self, game: Game):
@@ -155,6 +195,7 @@ class Logic:
                     best_evaluation = evaluation
                     best_i = i
                     best_j = j
+        self.fill_file(new_board)
         return (best_i, best_j)
 
     def fillCaseFour(self, game: Game, x: int, y: int) -> bool:
